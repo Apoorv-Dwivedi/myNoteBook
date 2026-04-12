@@ -1,0 +1,45 @@
+spring:
+  application:
+    name: notes-backend
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/notesdb}
+    username: ${SPRING_DATASOURCE_USERNAME:notesuser}
+    password: ${SPRING_DATASOURCE_PASSWORD:changeme_db_password}
+    driver-class-name: org.postgresql.Driver
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  mail:
+    host: smtp.mailtrap.io
+    port: 587
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+
+
+# Custom app-level properties — we read these in Sprint 2 via @ConfigurationProperties
+app:
+  jwt:
+    secret: ${JWT_SECRET:dev_secret_replace_in_production_must_be_very_long}
+    access-token-expiry-ms: 900000      # 15 minutes
+    refresh-token-expiry-ms: 604800000  # 7 days
+
+server:
+  port: 8080
+
+logging:
+  level:
+    com.notesapp: DEBUG
+    # Logs every security decision — very noisy but great for learning
+    org.springframework.security: DEBUG
