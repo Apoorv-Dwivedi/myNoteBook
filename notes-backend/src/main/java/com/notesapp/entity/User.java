@@ -16,6 +16,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "users")
 public class User {
 
     @Id
@@ -33,12 +34,12 @@ public class User {
     private String phoneNumber;
 
     @Enumerated(value = EnumType.STRING)
-    @Column(nullable = false)
+    @Column(nullable = false, name = "status")
     @Builder.Default
     private AccountStatus status= AccountStatus.PENDING;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(nullable = false, name ="role")
     @Builder.Default
     private Role role= Role.USER;
 
